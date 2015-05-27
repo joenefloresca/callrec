@@ -40,42 +40,30 @@ class AuthController extends Controller {
 	}
 
 	public function postLogin(Request $request)
-	{
+    {
+        $this->validate($request, [
+            'email' => 'required|email', 'password' => 'required',
+        ]);
+        if ($this->auth->validate(['email' => $request->email, 'password' => $request->password, 'status' => 0])) 
+        {
+            return redirect($this->loginPath())
+                ->withInput($request->only('email', 'remember'))
+                ->withErrors('Your account is Inactive or not yet verified');
+        }
 
-		$this->validate($request, [
-			'email' => 'required|email', 'password' => 'required',
-		]);
+        $credentials  = array('email' => $request->email, 'password' => $request->password);
 
-		$credentials = $request->only('email', 'password');
+        if ($this->auth->attempt($credentials, $request->has('remember')))
+        {
+                return redirect()->intended($this->redirectPath());
+        }
 
-		
-
-		if ($this->auth->attempt($credentials, $request->has('remember')))
-		{
-			/* Check if the user is Activated */
-			$userID = \Auth::user()->id;
-			$user = new \App\User;
-			$result = $user->isUserActivated($userID);
-			
-			if($result[0]->status == 1)
-			{
-				return redirect()->intended($this->redirectPath());
-			}
-			else if($result[0]->status == 0)
-			{
-				\Auth::logout();
-				Session::flash('alert-danger', 'Your account is not yet Activated.');
-            	return Redirect::to('auth/login');
-			}
-			
-		}
-
-		return redirect($this->loginPath())
-					->withInput($request->only('email', 'remember'))
-					->withErrors([
-						'email' => $this->getFailedLoginMessage(),
-					]);
-	}
+        return redirect($this->loginPath())
+            ->withInput($request->only('email', 'remember'))
+            ->withErrors([
+                'email' => 'Incorrect email address or password',
+            ]);
+    }
 
 	public function postRegister(Request $request)
 	{
