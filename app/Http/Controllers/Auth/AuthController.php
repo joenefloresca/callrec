@@ -55,7 +55,16 @@ class AuthController extends Controller {
 
         if ($this->auth->attempt($credentials, $request->has('remember')))
         {
-                return redirect()->intended($this->redirectPath());
+        		
+        		if(\Auth::user()->access_level == 1)
+        		{
+        			return Redirect::to('/recordings');
+        		}
+        		else
+        		{
+        			return redirect()->intended($this->redirectPath());
+        		}
+                
         }
 
         return redirect($this->loginPath())
