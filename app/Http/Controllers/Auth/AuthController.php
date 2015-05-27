@@ -5,6 +5,8 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
+use Session;
+use Redirect;
 
 
 class AuthController extends Controller {
@@ -46,11 +48,25 @@ class AuthController extends Controller {
 
 		$credentials = $request->only('email', 'password');
 
-		var_dump($request->email);exit;
+		
 
 		if ($this->auth->attempt($credentials, $request->has('remember')))
 		{
-			return redirect()->intended($this->redirectPath());
+			/* Check if the user is Activated */
+			$userID = \Auth::user()->id;
+			$user = new \App\User;
+			$result = $user->isUserActivated($userID);
+			
+			if($result[0]->status == 1)
+			{
+				return redirect()->intended($this->redirectPath());
+			}
+			else if($result[0]->status == 0)
+			{
+				Session::flash('alert-danger', 'Your account is not yet Activated.');
+            	return Redirect::to('auth/login');
+			}
+			
 		}
 
 		return redirect($this->loginPath())

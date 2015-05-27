@@ -44,4 +44,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $userData;
 	}
 
+	public function isUserActivated($id)
+	{
+		$userData = DB::select("SELECT status from users where id = :id", ['id' => $id]);
+		return $userData;
+	}
+
 }
