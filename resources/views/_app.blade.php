@@ -76,14 +76,12 @@
 	<script src="{{ asset('js/audioplayer.js') }}"></script>
 	<script>$( function() { $( 'audio' ).audioPlayer(); } );</script>
 	<script>
-
+		/* Disable Right Click */
 		$(document).ready(function()
 		{ 
 		       $(document).bind("contextmenu",function(e){
 		              return false;
 		       });
-
-		        
 		});
 </script>
 </body>

@@ -63,6 +63,7 @@ class AuthController extends Controller {
 			}
 			else if($result[0]->status == 0)
 			{
+				\Auth::logout();
 				Session::flash('alert-danger', 'Your account is not yet Activated.');
             	return Redirect::to('auth/login');
 			}
@@ -74,6 +75,30 @@ class AuthController extends Controller {
 					->withErrors([
 						'email' => $this->getFailedLoginMessage(),
 					]);
+	}
+
+	public function postRegister(Request $request)
+	{
+
+		$validator = $this->registrar->validator($request->all());
+
+		if ($validator->fails())
+		{
+			$this->throwValidationException(
+				$request, $validator
+			);
+		}
+		$this->registrar->create($request->all());
+
+		Session::flash('alert-success', 'Successfully registered.');
+        return Redirect::to('auth/register');
+	}
+
+	public function getLogout()
+	{
+		$this->auth->logout();
+
+		return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/auth/login');
 	}
 
 }
