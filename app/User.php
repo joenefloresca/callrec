@@ -34,7 +34,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
 	public function getUnApprovedUsers()
 	{	
-		$userData = DB::select("SELECT id, name, email, status from users where status = 0 AND access_level = 0");
+		$userData = DB::select("SELECT id, name, email, status, access_level from users where status = 0");
 		return $userData;
 	}
 

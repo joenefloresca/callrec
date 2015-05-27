@@ -36,6 +36,7 @@
                                         <td>ID</td>
                                         <td>Name</td>
                                         <td>Email</td>
+                                        <td>Access Level</td>
                                         <td>Status</td>
                                         <td colspan="1"><center>Action</center></td>
                                     </tr>
@@ -46,6 +47,13 @@
                                         <td>{{ $value->id }}</td>
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->email }}</td>
+                                        <td>
+                                        	@if ($value->access_level == 1)	
+	                                        	 QA 
+	                                        @else
+	                                        	 Client 
+	                                        @endif
+                                        </td>
                                         <td>
 	                                        @if ($value->status == 0)	
 	                                        	 Inactive 

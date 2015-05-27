@@ -44,7 +44,7 @@ class DesignationsController extends Controller {
 
 	public function create()
 	{
-		$user_options = array('' => 'Choose One') + DB::table('users')->where('access_level', '0')->lists('name','id');
+		$user_options = array('' => 'Choose One') + DB::table('users')->where(array('access_level' => 0, 'status' => 1))->lists('name','id');
         $recording_options = array('' => 'Choose One') + DB::table('recordings')->where('status', '1')->lists('ClientName','id');
                 
 		return view('designations/create')->with(array('user_options'=>$user_options, 'recording_options' => $recording_options));
