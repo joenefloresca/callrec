@@ -69,7 +69,7 @@ class RecordingsController extends Controller {
         // delete
         $recordings = \App\Http\Models\Recording::find($id);
         $recordings->delete();
-        // redirect
+        
 
         /* Delete directory */
         $dir = 'C:/wamp/www/callrec/public/uploads/'.$recordings->ClientName;
@@ -78,7 +78,8 @@ class RecordingsController extends Controller {
         /* Delete from designation */
         $designation = new \App\Http\Models\Designation;
         $result = $designation->deleteRecording($id); // Return 1 if success
-
+        
+        // redirect
         Session::flash('message', 'Successfully deleted the recording!');
         return Redirect::to('/recordings');
     }
