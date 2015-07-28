@@ -36,7 +36,12 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 	Route::get('users', 'UsersController@index');
 	Route::put('users/activate/{id}', 'UsersController@activate');
 
+	/* Clients Rote */
+	Route::resource('client', 'ClientController');
+
 });
+
+Route::get('recording/{hash}', 'RecordingsController@showPublic');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

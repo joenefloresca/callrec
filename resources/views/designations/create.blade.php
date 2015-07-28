@@ -33,14 +33,14 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">User</label>
 							<div class="col-md-6">
-								{!! Form::select('user', $user_options) !!}
+								{!! Form::select('user', $user_options, '',array('class' => 'form-control')) !!}
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Client Name</label>
+							<label class="col-md-4 control-label">Client-Recording Name</label>
 							<div class="col-md-6">
-								{!! Form::select('recording', $recording_options) !!}
+								{!! Form::select('recording', $recording_options, '', array('class' => 'form-control')) !!}
 							</div>
 						</div>
 						

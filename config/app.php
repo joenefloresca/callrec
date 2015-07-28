@@ -136,6 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Collective\Html\HtmlServiceProvider',
+		'Anchu\Ftp\FtpServiceProvider',
 
 		/*
 		 * Application Service Providers...

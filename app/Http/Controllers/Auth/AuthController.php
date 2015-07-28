@@ -76,7 +76,6 @@ class AuthController extends Controller {
 
 	public function postRegister(Request $request)
 	{
-
 		$validator = $this->registrar->validator($request->all());
 
 		if ($validator->fails())
@@ -85,7 +84,16 @@ class AuthController extends Controller {
 				$request, $validator
 			);
 		}
+
 		$this->registrar->create($request->all());
+		/* Send Email to Admin */
+		// $access = "";
+		// $request->access_level == 1 ? $access = "Admin / QA" : $access = "Client";
+		// $msg = "New Registration  \n Username: ".$request->name."\n Email: ".$request->email."\n Access Level :".$access;
+		// $msg = wordwrap($msg,70);
+		//mail("joene.floresca@qdf-phils.com","New Registration",$msg);
+		//mail("joenefloresca@gmail.com","New Registration",$msg);
+
 
 		Session::flash('alert-success', 'Successfully registered.');
         return Redirect::to('auth/register');

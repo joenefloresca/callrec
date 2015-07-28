@@ -12,7 +12,7 @@ class Designation extends \Eloquent  {
 
 	public function getUserRecordings($userID)
 	{
-		$userRecordings = DB::select("SELECT a.name, c.ClientName, c.Path, c.FileName FROM users a INNER JOIN designations b ON a.id = b.Users_id INNER JOIN recordings c ON b.Recordings_id = c.id where a.id = :id", ['id' => $userID]);
+		$userRecordings = DB::select("SELECT a.name, c.ClientName, c.Path, c.FileName, c.Hash_Key, c.created_at AS dateUploaded FROM users a INNER JOIN designations b ON a.id = b.Users_id INNER JOIN recordings c ON b.Recordings_id = c.id where a.id = :id", ['id' => $userID]);
 		return $userRecordings;
 	}
 

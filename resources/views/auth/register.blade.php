@@ -59,7 +59,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Access Level</label>
 							<div class="col-md-6">
-								<select name="access_level">
+								<select name="access_level" class="form-control">
 									<option value="">Choose One</option>
 									<option value="0">Client</option>
 									<option value="1">QA</option>

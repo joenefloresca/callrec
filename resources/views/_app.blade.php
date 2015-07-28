@@ -4,9 +4,10 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laravel</title>
+	<title>CRS</title>
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+	<link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/reset.cs') }}" rel="stylesheet">
 	<link href="{{ asset('/css/audioplayer.css') }}" rel="stylesheet">
 
@@ -21,7 +22,7 @@
 	<![endif]-->
 </head>
 <body onkeydown="return false">
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -30,7 +31,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
+				<a class="navbar-brand" href="#">CRS</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -38,11 +39,32 @@
 					@if (Auth::guest())
 					@else
 						@if (Auth::user()->access_level == 1)
-							<li><a href="{{ url('/recordings/create') }}">Recordings</a></li>
-							<li><a href="{{ url('/recordings') }}">Recordings List</a></li>
-							<li><a href="{{ url('/designations/create') }}">Designation</a></li>
-							<li><a href="{{ url('/designations') }}">Designation List</a></li>
-							<li><a href="{{ url('/users') }}">Users Activation</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> Clients <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('client') }}">Clients List</a></li>
+									<li><a href="{{ url('client/create') }}">Add Clients</a></li>
+								</ul>
+							</li>
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="glyphicon glyphicon-headphones"></i> Recordings <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('/recordings') }}">Recordings List</a></li>
+									<li><a href="{{ url('/recordings/create') }}">Recordings</a></li>
+								</ul>
+							</li>
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="glyphicon glyphicon-tasks"></i> Designations <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="{{ url('/designations') }}">Designation List</a></li>
+									<li><a href="{{ url('/designations/create') }}">Designation</a></li>
+								</ul>
+							</li>
+
+							
+							<li><a href="{{ url('/users') }}"><i class="glyphicon glyphicon-exclamation-sign"></i> Users Activation</a></li>
 						@else
 							<li><a href="{{ url('/') }}">Home</a></li>	
 						@endif
