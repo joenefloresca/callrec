@@ -51,7 +51,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="glyphicon glyphicon-headphones"></i> Recordings <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="{{ url('/recordings') }}">Recordings List</a></li>
-									<li><a href="{{ url('/recordings/create') }}">Recordings</a></li>
+									<li><a href="{{ url('/recordings/create') }}">Add Recordings</a></li>
 								</ul>
 							</li>
 
@@ -59,7 +59,7 @@
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="glyphicon glyphicon-tasks"></i> Designations <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
 									<li><a href="{{ url('/designations') }}">Designation List</a></li>
-									<li><a href="{{ url('/designations/create') }}">Designation</a></li>
+									<li><a href="{{ url('/designations/create') }}">Add Designation</a></li>
 								</ul>
 							</li>
 

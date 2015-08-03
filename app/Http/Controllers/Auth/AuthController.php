@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Session;
 use Redirect;
+use PHPMailer;
 
 
 class AuthController extends Controller {
@@ -86,14 +87,34 @@ class AuthController extends Controller {
 		}
 
 		$this->registrar->create($request->all());
-		/* Send Email to Admin */
-		// $access = "";
-		// $request->access_level == 1 ? $access = "Admin / QA" : $access = "Client";
-		// $msg = "New Registration  \n Username: ".$request->name."\n Email: ".$request->email."\n Access Level :".$access;
-		// $msg = wordwrap($msg,70);
-		//mail("joene.floresca@qdf-phils.com","New Registration",$msg);
-		//mail("joenefloresca@gmail.com","New Registration",$msg);
 
+		/* Send Email to Admin */
+		$access = "";
+		$request->access_level == 1 ? $access = "Admin / QA" : $access = "Client";
+		/* Send Email to Admin */
+		$msg = "CRS New Registration  \n Username: ".$request->name."\n Email: ".$request->email."\n Access Level :".$access;
+		$msg = wordwrap($msg,70);
+		$mail = new PHPMailer();
+		$mail->isSMTP();                                // Set mailer to use SMTP
+		$mail->Host = 'smtp.gmail.com';            // Specify main and backup SMTP servers
+		$mail->SMTPAuth = true;                         // Enable SMTP authentication
+		$mail->Username = 'joenefloresca@gmail.com';   // SMTP username
+		$mail->Password = 'CheRambil27';                // SMTP password
+		$mail->SMTPSecure = 'tls';                      // Enable TLS encryption, `ssl` also accepted
+		$mail->Port = 587;                              // TCP port to connect to
+		$mail->From = 'joenefloresca@gmail.com';
+		$mail->FromName = 'Joene Floresca';
+		$mail->addAddress('joene.floresca@qdf-phils.com', 'Joene Floresca');   // Add a recipient
+		$mail->Subject = 'New Registration';
+		$mail->Body    =  $msg;
+		$mail->send();
+		// if(!$mail->send()) {
+		//     echo 'Message could not be sent.';
+		//     echo 'Mailer Error: ' . $mail->ErrorInfo;
+		// } else {
+  //   		echo 'Message has been sent';
+		// }
+		//exit;
 
 		Session::flash('alert-success', 'Successfully registered.');
         return Redirect::to('auth/register');

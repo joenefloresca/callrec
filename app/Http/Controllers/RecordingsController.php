@@ -20,22 +20,16 @@ class RecordingsController extends Controller {
 	 *
 	 * @return Response
 	 */
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
 	public function index()
     {
+        $this->middleware('auth');
         $recordings = new Recording();
-  	
-
         return view('recordings/index')->with(array('recordings' => $recordings->all()));
     }
 
 	public function create()
 	{
+        $this->middleware('auth');
         $client_options = array('' => 'Choose One') + DB::table('clients')->where('status', '1')->lists('ClientName','ClientName');
 		return view('recordings/create')->with(array('client_options' => $client_options));
 	}
@@ -71,10 +65,10 @@ class RecordingsController extends Controller {
             $recordings->save();
 
             /* Upload to Remote Server via FTP Service*/
-            $file_loc       = public_path()."\uploads\\".Input::get('ClientName').'\\'.$filename;
-            $mkdir          = FTP::connection()->makeDir("CallRecordingsUpload/".Input::get('ClientName'));
-            $change_ftp_dir = FTP::connection()->changeDir("CallRecordingsUpload/".Input::get('ClientName'));
-            $ftp_upload     = FTP::connection()->uploadFile($file_loc, $filename);
+            // $file_loc       = public_path()."\uploads\\".Input::get('ClientName').'\\'.$filename;
+            // $mkdir          = FTP::connection()->makeDir("CallRecordingsUpload/".Input::get('ClientName'));
+            // $change_ftp_dir = FTP::connection()->changeDir("CallRecordingsUpload/".Input::get('ClientName'));
+            // $ftp_upload     = FTP::connection()->uploadFile($file_loc, $filename);
 
             Session::flash('alert-success', 'Form Submitted Successfully.');
 
